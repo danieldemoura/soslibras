@@ -67,13 +67,13 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## ATENÇÃO: Bug
 <p>
-  Infelizmente não sei porque está bom um bug no banco de dados pra cadastrar e fazer login, como já faz mais de 5 anos que nunca mais mexi com programação principalmente com Java e com banco de dados eu não sei como resolver.
+  Infelizmente não sei porque, mas tem um bug no banco de dados pra cadastrar e fazer login, como já faz mais de 5 anos que nunca mais programei em Java e utilizei banco de dados eu não sei como resolver esse bug.
 </p>
 <p align="center">
   <img alt="Imagem mostrando pasta de onde fica o arquivo para executar" src=".github/bug.png" width="100%">
 </p>
 <p>
-  Se por acaso conseguir resolver o erro, faça um pull request pra me ajudar a trazer de volta a vida esse projeto.
+  Se por acaso conseguir resolver esse erro, faça um pull request pra me ajudar a trazer de volta a vida esse projeto.
 </p>
 
 ## :memo: Licença
