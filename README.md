@@ -65,16 +65,70 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 </p>
 
 
-## ATENÇÃO: Bug
-<p>
-  Infelizmente não sei porque, mas tem um bug no banco de dados pra cadastrar e fazer login, como já faz mais de 5 anos que nunca mais programei em Java e utilizei banco de dados eu não sei como resolver esse bug.
-</p>
-<p align="center">
-  <img alt="Imagem mostrando pasta de onde fica o arquivo para executar" src=".github/bug.png" width="100%">
-</p>
-<p>
-  Se por acaso conseguir resolver esse erro, faça um pull request pra me ajudar a trazer de volta a vida esse projeto.
-</p>
+## ✅ Resolução de Problemas (Histórico de Correções)
+
+Este projeto apresentava erros de conexão com o banco de dados e execução que impediam seu funcionamento. Abaixo está o detalhamento dos problemas e das soluções aplicadas.
+
+**Problema 1: Erro de Conexão com o Banco de Dados**
+*   **Sintoma:** Ao tentar cadastrar, ocorria o erro `SQLSyntaxErrorException: user lacks privilege or object not found: USUARIO`.
+*   **Causa:** O caminho do banco de dados estava "hardcoded" (fixo) no código como absoluto (`C:/SOSLibras/banco/cadastro`). Como essa pasta não existia no computador do usuário, o HSQLDB criava um banco novo vazio, sem as tabelas necessárias.
+*   **Solução:** Alteramos a classe `ConnectionFactory.java` para usar um caminho relativo (`jdbc:hsqldb:file:banco/cadastro`), permitindo que o sistema encontre o banco de dados dentro da própria pasta do projeto, independente de onde ele esteja salvo.
+
+**Problema 2: Dependências Ausentes (ClassNotFoundException)**
+*   **Sintoma:** O erro `ClassNotFoundException: org.hsqldb.jdbcDriver` impedia o início da conexão.
+*   **Causa:** As bibliotecas necessárias (JARs) na pasta `dist/lib` estavam faltando ou não eram incluídas no Classpath durante a execução/compilação.
+*   **Solução:** 
+    1. Configuramos o VS Code (`settings.json`) para reconhecer as bibliotecas.
+    2. Recriamos a pasta `dist/lib` e copiamos o driver `hsqldb.jar` corretamente via script de build.
+    3. Criamos um `MANIFEST.MF` correto apontando para essas bibliotecas.
+
+**Problema 3: Erro Silencioso de Conexão**
+*   **Sintoma:** O usuário recebia apenas uma mensagem genérica "ATENÇÃO ouve algum erro...", sem detalhes.
+*   **Solução:** Melhoramos o tratamento de exceções em `frmCadastrar.java` e `ConnectionFactory.java` para exibir pop-ups com a mensagem real do erro (ex: `con is null` ou stack traces), facilitando o diagnóstico.
+
+---
+
+## 💻️ Como Executar no VS Code
+
+Este projeto agora está configurado para rodar facilmente no VS Code sem precisar instalar o Apache Ant manualmente.
+
+1.  Abra a pasta do projeto no VS Code.
+2.  Espere a extensão "Extension Pack for Java" carregar o projeto.
+3.  Abra o arquivo `src/telaprincipal/frmPrincipal.java`.
+4.  Clique em **Run** ou **Debug** (botão de Play acima da classe `main`).
+
+## 📦 Como Gerar o Executável (Pasta dist)
+
+Foi criada uma Tarefa Automatizada no VS Code para compilar e gerar a versão final para distribuição.
+
+1.  No menu superior, vá em **Terminal** -> **Run Task...** (Executar Tarefa).
+2.  Selecione a tarefa: **Gerar JAR e Copiar Banco**.
+3.  O VS Code irá:
+    *   Compilar as classes.
+    *   Gerar o arquivo `dist/SosLibras.jar`.
+    *   Criar a pasta `dist/lib` e copiar as dependências.
+    *   Copiar a pasta `banco` atualizada para dentro de `dist`.
+
+> **Nota:** Certifique-se de fechar qualquer execução do programa antes de rodar essa tarefa para evitar erro de arquivo travado.
+
+## 🗄️ Como Acessar o Banco de Dados (HSQLDB)
+
+Para ver as tabelas e dados cadastrados:
+
+1.  Na extensão "Database Manager" do VS Code (ou execute o `DatabaseManagerSwing` do próprio HSQLDB).
+2.  Configure a conexão com estes dados exatos:
+    *   **Type:** HSQL Database Engine Standalone
+    *   **Driver:** `org.hsqldb.jdbcDriver`
+    *   **URL:** `jdbc:hsqldb:file:C:/Caminho/Para/Seu/Projeto/banco/cadastro` (Use o caminho completo da sua pasta)
+    *   **User:** `sa`
+    *   **Password:** (em branco)
+
+---
+
+## 🤖 Créditos e Agradecimentos
+
+A resolução complexa destes problemas de infraestrutura, configuração de ambiente, correção de código legado e automação de build foi realizada com o auxílio da **IA Gemini 3 Pro (High)** integrada à IDE **Antigravity** do Google.
+
 
 ## :memo: Licença
 
