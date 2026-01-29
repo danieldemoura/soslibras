@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Gerar JAR e Copiar Banco",
+            "type": "shell",
+            "command": "mkdir -Force dist/lib; copy hsqldb.jar dist/lib; & 'C:\\Program Files\\Java\\jdk-25\\bin\\jar.exe' cfm dist/SosLibras.jar META-INF/MANIFEST.MF -C build/classes . ; robocopy banco dist/banco /E /IS /IT; if ($lastexitcode -lt 8) { $global:LASTEXITCODE = 0 }",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "windows": {
+                "options": {
+                    "shell": {
+                        "executable": "powershell.exe",
+                        "args": [
+                            "-NoProfile",
+                            "-ExecutionPolicy",
+                            "Bypass",
+                            "-Command"
+                        ]
+                    }
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        }
+    ]
+}
