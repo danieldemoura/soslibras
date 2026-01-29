@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "dist/lib/*.jar",
+        "hsqldb.jar"
+    ],
+    "java.project.outputPath": "build/classes"
+}
